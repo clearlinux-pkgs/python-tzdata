@@ -4,7 +4,7 @@
 #
 Name     : python-tzdata
 Version  : 2021.5
-Release  : 1
+Release  : 2
 URL      : https://files.pythonhosted.org/packages/9e/04/320468ac0a37db42c313dfcc24160fec94f72f23740147c5018084ea3a8a/tzdata-2021.5.tar.gz
 Source0  : https://files.pythonhosted.org/packages/9e/04/320468ac0a37db42c313dfcc24160fec94f72f23740147c5018084ea3a8a/tzdata-2021.5.tar.gz
 Summary  : Provider of IANA time zone data
@@ -16,11 +16,11 @@ Requires: python-tzdata-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
 BuildRequires : pluggy
 BuildRequires : py-python
+BuildRequires : pypi(setuptools)
+BuildRequires : pypi(wheel)
 BuildRequires : pytest
-BuildRequires : setuptools
 BuildRequires : tox
 BuildRequires : virtualenv
-BuildRequires : wheel
 
 %description
 tzdata: Python package providing IANA time zone data
@@ -62,7 +62,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1636565874
+export SOURCE_DATE_EPOCH=1637686474
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -80,7 +80,7 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/python-tzdata
 cp %{_builddir}/tzdata-2021.5/LICENSE %{buildroot}/usr/share/package-licenses/python-tzdata/a17821d024ce62859b8750020c3b7cbb2e6a57af
 cp %{_builddir}/tzdata-2021.5/licenses/LICENSE_APACHE %{buildroot}/usr/share/package-licenses/python-tzdata/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
-python3 -m install --destdir=%{buildroot} dist/*.whl
+pip install --root=%{buildroot} --no-deps dist/*.whl
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
